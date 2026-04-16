@@ -1,14 +1,9 @@
 import { defineCollection, z } from "astro:content";
 
-// ── 제품 컬렉션 스키마 ─────────────────────────────────────────
 const products = defineCollection({
   type: "content",
   schema: z.object({
-    // 식별자
     id: z.string(),
-    slug: z.string().optional(),
-
-    // 분류
     category: z.enum([
       "permanent-marker",
       "name-pen",
@@ -30,23 +25,15 @@ const products = defineCollection({
       "sign-pen-waterbased",
       "oem-support",
     ]),
-
-    // 출시 단계
     apis_launch_stage: z.enum(["core", "growth", "expansion", "oem-only"]),
     apis_launch_order: z.number().int().positive(),
-
-    // 노출 설정
     home_featured: z.boolean().default(false),
     oem_featured: z.boolean().default(false),
     menu_visibility: z.enum(["primary", "secondary", "hidden"]).default("primary"),
-
-    // 제품 정보
     title: z.string(),
     title_short: z.string().optional(),
     subtitle: z.string().optional(),
     description: z.string(),
-
-    // 상세 스펙
     specs: z
       .object({
         ink_type: z.enum(["유성", "수성", "아크릴", "UV", "형광"]).optional(),
@@ -60,19 +47,13 @@ const products = defineCollection({
         made_in: z.string().default("Korea"),
       })
       .optional(),
-
-    // 판매 채널
     coupang_url: z.string().default(""),
     coupang_partners: z.boolean().default(true),
-
-    // SEO
     seo_title: z.string().optional(),
     seo_description: z.string().optional(),
     seo_keywords: z.array(z.string()).default([]),
     og_image: z.string().optional(),
     search_boost: z.number().int().min(1).max(10).default(5),
-
-    // 내부 운영
     sales_priority: z.number().int().min(1).max(10).default(5),
     is_active: z.boolean().default(true),
     created_at: z.string().optional(),
@@ -80,12 +61,10 @@ const products = defineCollection({
   }),
 });
 
-// ── 카테고리 컬렉션 스키마 ────────────────────────────────────
 const categories = defineCollection({
   type: "data",
   schema: z.object({
     id: z.string(),
-    slug: z.string().optional(),
     title: z.string(),
     title_en: z.string().optional(),
     subtitle: z.string().optional(),
@@ -109,7 +88,6 @@ const categories = defineCollection({
   }),
 });
 
-// ── 공지사항 컬렉션 스키마 ────────────────────────────────────
 const notices = defineCollection({
   type: "content",
   schema: z.object({
