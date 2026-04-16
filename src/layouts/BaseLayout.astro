@@ -1,0 +1,153 @@
+---
+interface Props {
+  title: string;
+  description?: string;
+  ogImage?: string;
+  noIndex?: boolean;
+}
+
+const {
+  title,
+  description = "아피스(APIS) — 20년 OEM 제조 경험의 마커&필기구 전문 브랜드. 유성마커, 네임펜, 보드마커, 형광펜 전문 제조사.",
+  ogImage = "/images/og-default.jpg",
+  noIndex = false,
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    {noIndex && <meta name="robots" content="noindex,nofollow" />}
+    <link rel="canonical" href={canonicalURL} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={new URL(ogImage, Astro.site)} />
+    <meta property="og:locale" content="ko_KR" />
+    <meta property="og:site_name" content="APIS 아피스" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={new URL(ogImage, Astro.site)} />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Pagefind -->
+    <link rel="stylesheet" href="/pagefind/pagefind-ui.css" />
+    <script src="/pagefind/pagefind-ui.js" type="text/javascript"></script>
+
+    <style is:global>
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+      :root {
+        --apis-primary: #1a1a2e;
+        --apis-accent:  #e94560;
+        --apis-gold:    #f5a623;
+        --apis-ink:     #16213e;
+        --apis-light:   #f8f9fc;
+        --apis-gray:    #6b7280;
+        --apis-border:  #e5e7eb;
+        --font-sans: 'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+      }
+      html { scroll-behavior: smooth; }
+      body { font-family: var(--font-sans); color: var(--apis-primary); background: #fff; line-height: 1.6; }
+      a { text-decoration: none; color: inherit; }
+      img { max-width: 100%; display: block; }
+      .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+      .section { padding: 80px 0; }
+      .section-title { font-size: 2rem; font-weight: 800; color: var(--apis-primary); margin-bottom: 12px; }
+      .section-sub   { font-size: 1rem; color: var(--apis-gray); margin-bottom: 48px; }
+      .text-center { text-align: center; }
+      .bg-light { background: var(--apis-light); }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <header style="position:sticky;top:0;z-index:100;background:rgba(255,255,255,0.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--apis-border);">
+      <div class="container">
+        <nav style="display:flex;align-items:center;justify-content:space-between;height:64px;">
+          <a href="/" style="display:flex;align-items:center;gap:10px;">
+            <div style="width:36px;height:36px;border-radius:8px;background:linear-gradient(135deg,var(--apis-accent),var(--apis-primary));display:flex;align-items:center;justify-content:center;color:#fff;font-weight:900;font-size:14px;">AP</div>
+            <div>
+              <span style="font-size:1.4rem;font-weight:900;letter-spacing:2px;">APIS</span>
+              <span style="font-size:0.65rem;color:var(--apis-gray);letter-spacing:1px;display:block;margin-top:-4px;">HARNESS ENGINEERING</span>
+            </div>
+          </a>
+          <ul style="display:flex;gap:32px;list-style:none;">
+            <li><a href="/categories" style="font-size:0.875rem;font-weight:600;color:var(--apis-gray);">제품</a></li>
+            <li><a href="/oem" style="font-size:0.875rem;font-weight:600;color:var(--apis-gray);">OEM 상담</a></li>
+            <li><a href="/notices" style="font-size:0.875rem;font-weight:600;color:var(--apis-gray);">공지사항</a></li>
+          </ul>
+          <a href="/oem" style="background:var(--apis-accent);color:#fff;padding:8px 20px;border-radius:8px;font-size:0.875rem;font-weight:700;">OEM 문의</a>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+      <slot />
+    </main>
+
+    <!-- Footer -->
+    <footer style="background:var(--apis-primary);color:rgba(255,255,255,0.6);padding:60px 0 30px;">
+      <div class="container">
+        <div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px;">
+          <div>
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+              <div style="width:36px;height:36px;border-radius:8px;background:linear-gradient(135deg,var(--apis-accent),var(--apis-primary));display:flex;align-items:center;justify-content:center;color:#fff;font-weight:900;font-size:14px;">AP</div>
+              <span style="font-size:1.4rem;font-weight:900;letter-spacing:2px;color:#fff;">APIS</span>
+            </div>
+            <p style="font-size:0.85rem;line-height:1.8;">아피스(APIS)는 20년 OEM 제조 경험을 바탕으로<br/>마커·필기구 분야의 기준을 새롭게 정의합니다.</p>
+            <p style="margin-top:12px;font-size:0.85rem;">📧 apis1954@gmail.com</p>
+            <p style="font-size:0.85rem;">🌐 apispen.com</p>
+          </div>
+          <div>
+            <h4 style="color:#fff;font-weight:700;margin-bottom:16px;font-size:0.9rem;">제품</h4>
+            <ul style="list-style:none;">
+              <li style="margin-bottom:10px;font-size:0.85rem;"><a href="/categories/core-markers">코어 마커</a></li>
+              <li style="margin-bottom:10px;font-size:0.85rem;"><a href="/categories/office-education-markers">사무·교육</a></li>
+              <li style="margin-bottom:10px;font-size:0.85rem;"><a href="/categories/creative-markers">크리에이티브</a></li>
+              <li style="margin-bottom:10px;font-size:0.85rem;"><a href="/categories/functional-markers">기능성</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4 style="color:#fff;font-weight:700;margin-bottom:16px;font-size:0.9rem;">서비스</h4>
+            <ul style="list-style:none;">
+              <li style="margin-bottom:10px;font-size:0.85rem;"><a href="/oem">OEM 상담</a></li>
+              <li style="margin-bottom:10px;font-size:0.85rem;"><a href="/search">제품 검색</a></li>
+              <li style="margin-bottom:10px;font-size:0.85rem;"><a href="/notices">공지사항</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4 style="color:#fff;font-weight:700;margin-bottom:16px;font-size:0.9rem;">정보</h4>
+            <ul style="list-style:none;">
+              <li style="margin-bottom:10px;font-size:0.85rem;"><a href="/about">브랜드 소개</a></li>
+              <li style="margin-bottom:10px;font-size:0.85rem;"><a href="/privacy">개인정보처리방침</a></li>
+              <li style="margin-bottom:10px;font-size:0.85rem;"><a href="/terms">이용약관</a></li>
+            </ul>
+          </div>
+        </div>
+        <div style="border-top:1px solid rgba(255,255,255,0.1);padding-top:24px;display:flex;align-items:center;justify-content:space-between;font-size:0.8rem;">
+          <p>© 2026 APIS (아피스) — Harness Engineering. All rights reserved.</p>
+          <p>Made with <span style="color:var(--apis-accent);">♥</span> in Korea</p>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

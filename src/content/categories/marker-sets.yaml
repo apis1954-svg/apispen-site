@@ -1,0 +1,16 @@
+id: "marker-sets"
+slug: "marker-sets"
+title: "마커 세트"
+title_en: "Marker Sets"
+subtitle: "혼합 구성 마커 세트 라인"
+description: "다양한 용도의 마커를 편리하게 구성한 세트 라인. 가정·사무·예술·교육 목적별 최적 조합으로 제공합니다."
+sales_focus_group: "marker-core"
+included_categories:
+  - "marker-set"
+icon: "📦"
+display_order: 6
+hero_color: "#6366f1"
+is_active: true
+seo_title: "마커 세트 — 혼합 구성 마커 세트 | APIS 아피스"
+seo_description: "APIS 마커 세트. 유성·수성·형광·아크릴 마커를 용도별로 구성한 세트 라인."
+og_image: "/images/categories/marker-sets-og.jpg"

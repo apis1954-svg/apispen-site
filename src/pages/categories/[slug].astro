@@ -1,0 +1,122 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+
+export async function getStaticPaths() {
+  const categories = await getCollection("categories", ({ data }) => data.is_active);
+  return categories.map((cat) => ({
+    params: { slug: cat.id },
+    props: { category: cat },
+  }));
+}
+
+const { category } = Astro.props;
+const { data: cat } = category;
+
+// 이 카테고리에 속하는 제품 가져오기
+const allProducts = await getCollection("products", ({ data }) => data.is_active);
+const categoryProducts = allProducts
+  .filter(
+    (p) =>
+      p.data.primary_sales_group === cat.sales_focus_group &&
+      p.data.menu_visibility !== "hidden"
+  )
+  .sort((a, b) => {
+    if (a.data.apis_launch_order !== b.data.apis_launch_order)
+      return a.data.apis_launch_order - b.data.apis_launch_order;
+    return b.data.sales_priority - a.data.sales_priority;
+  });
+
+const categoryIcons: Record<string, string> = {
+  "permanent-marker": "🖊️",
+  "name-pen": "✒️",
+  "board-marker": "📊",
+  "highlighter": "🌟",
+  "fabric-marker": "👗",
+  "washable-marker": "🧺",
+  "functional-marker": "🔧",
+  "waterbased-sign-pen": "🖋️",
+  "acrylic-marker": "🎨",
+  "marker-set": "📦",
+  "oem-item": "🏭",
+};
+---
+
+<BaseLayout
+  title={cat.seo_title || `${cat.title} | APIS 아피스`}
+  description={cat.seo_description || cat.description}
+  ogImage={cat.og_image}
+>
+
+  <!-- Category Hero -->
+  <section style={`background:linear-gradient(135deg,var(--apis-primary),${cat.hero_color}40);color:#fff;padding:60px 0;`}>
+    <div class="container">
+      <a href="/categories" style="color:rgba(255,255,255,0.6);font-size:0.85rem;display:inline-block;margin-bottom:20px;">← 전체 카테고리</a>
+      <div style="display:flex;align-items:center;gap:20px;">
+        <span style="font-size:3.5rem;">{cat.icon}</span>
+        <div>
+          <h1 style="font-size:2.5rem;font-weight:900;margin-bottom:8px;">{cat.title}</h1>
+          <p style="color:rgba(255,255,255,0.75);font-size:1rem;">{cat.subtitle}</p>
+        </div>
+      </div>
+      <p style="color:rgba(255,255,255,0.7);margin-top:20px;max-width:600px;line-height:1.8;">{cat.description}</p>
+    </div>
+  </section>
+
+  <!-- Products -->
+  <section class="section">
+    <div class="container">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:40px;">
+        <h2 style="font-size:1.5rem;font-weight:800;">{cat.title} 제품 ({categoryProducts.length}개)</h2>
+      </div>
+
+      {categoryProducts.length > 0 ? (
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:28px;">
+          {categoryProducts.map((product) => (
+            <a
+              href={`/products/${product.slug}`}
+              style="border:1px solid var(--apis-border);border-radius:16px;overflow:hidden;display:block;transition:all 0.3s;"
+            >
+              <div style="height:200px;background:var(--apis-light);display:flex;align-items:center;justify-content:center;font-size:4rem;">
+                {categoryIcons[product.data.category] || "📦"}
+              </div>
+              <div style="padding:24px;">
+                <div style="font-size:0.75rem;color:var(--apis-accent);font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;">
+                  {product.data.category.replace(/-/g, " ")}
+                </div>
+                <h3 style="font-size:1rem;font-weight:800;margin-bottom:10px;line-height:1.4;">{product.data.title}</h3>
+                <p style="font-size:0.85rem;color:var(--apis-gray);line-height:1.7;margin-bottom:16px;">
+                  {product.data.description.slice(0, 80)}...
+                </p>
+                <div style="display:flex;align-items:center;justify-content:space-between;">
+                  <div style="display:flex;gap:6px;flex-wrap:wrap;">
+                    {product.data.specs?.colors_available?.slice(0, 3).map((color) => (
+                      <span style="background:var(--apis-light);color:var(--apis-gray);padding:2px 8px;border-radius:4px;font-size:0.7rem;">{color}</span>
+                    ))}
+                  </div>
+                  {product.data.coupang_url && (
+                    <a
+                      href={product.data.coupang_url}
+                      target="_blank"
+                      rel="noopener noreferrer nofollow"
+                      style="color:var(--apis-accent);font-size:0.8rem;font-weight:700;"
+                      onclick="event.stopPropagation();"
+                    >
+                      쿠팡 →
+                    </a>
+                  )}
+                </div>
+              </div>
+            </a>
+          ))}
+        </div>
+      ) : (
+        <div style="text-align:center;padding:80px 0;color:var(--apis-gray);">
+          <p style="font-size:1.2rem;margin-bottom:16px;">준비 중인 카테고리입니다</p>
+          <a href="/oem" style="color:var(--apis-accent);font-weight:700;">OEM 상담으로 맞춤 제작 문의하기 →</a>
+        </div>
+      )}
+    </div>
+  </section>
+
+</BaseLayout>

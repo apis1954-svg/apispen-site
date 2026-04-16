@@ -1,0 +1,17 @@
+id: "core-markers"
+slug: "core-markers"
+title: "코어 마커"
+title_en: "Core Markers"
+subtitle: "유성마커·네임펜 핵심 라인"
+description: "아피스의 핵심 제품군. 72H 내수 잉크와 멀티서피스 기술을 탑재한 유성마커와 네임펜 전문 라인업입니다."
+sales_focus_group: "marker-core"
+included_categories:
+  - "permanent-marker"
+  - "name-pen"
+icon: "🖊️"
+display_order: 1
+hero_color: "#e94560"
+is_active: true
+seo_title: "코어 마커 — 유성마커·네임펜 | APIS 아피스"
+seo_description: "APIS 유성마커와 네임펜. 72시간 캡오프 기술과 멀티서피스 잉크로 모든 표면에 선명하게."
+og_image: "/images/categories/core-markers-og.jpg"

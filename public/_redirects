@@ -1,0 +1,10 @@
+# Cloudflare Pages URL 리다이렉트 규칙
+
+# www → non-www (SEO 정규화)
+https://www.apispen.com/* https://apispen.com/:splat 301
+
+# 구 URL이 생기면 여기에 추가 (301 영구 리다이렉트)
+# /old-product-url  /products/new-slug  301
+
+# 404 폴백 (Astro가 자체 처리하지 못하는 경우)
+/* /404  404

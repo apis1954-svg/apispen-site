@@ -1,0 +1,17 @@
+id: "office-education-markers"
+slug: "office-education-markers"
+title: "사무·교육 마커"
+title_en: "Office & Education Markers"
+subtitle: "보드마커·형광펜 전문 라인"
+description: "학교와 사무 환경에 최적화된 보드마커와 형광펜. 선명한 발색과 편리한 사용성으로 교육·사무 현장을 지원합니다."
+sales_focus_group: "marker-office"
+included_categories:
+  - "board-marker"
+  - "highlighter"
+icon: "📊"
+display_order: 2
+hero_color: "#3b82f6"
+is_active: true
+seo_title: "사무·교육 마커 — 보드마커·형광펜 | APIS 아피스"
+seo_description: "APIS 보드마커와 형광펜. 화이트보드 전용 선명 발색, 번짐없는 수성 형광 잉크."
+og_image: "/images/categories/office-education-markers-og.jpg"

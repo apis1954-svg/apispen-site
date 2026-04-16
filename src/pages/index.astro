@@ -1,0 +1,223 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+
+// 활성화된 제품만 가져와서 apis_launch_order 기준 정렬
+const allProducts = await getCollection("products", ({ data }) => data.is_active);
+const allCategories = await getCollection("categories", ({ data }) => data.is_active);
+
+// 홈 피처드 제품 (최대 8개)
+const homeProducts = allProducts
+  .filter((p) => p.data.home_featured && p.data.menu_visibility === "primary")
+  .sort((a, b) => {
+    if (a.data.apis_launch_order !== b.data.apis_launch_order)
+      return a.data.apis_launch_order - b.data.apis_launch_order;
+    return b.data.sales_priority - a.data.sales_priority;
+  })
+  .slice(0, 8);
+
+// 카테고리 정렬
+const sortedCategories = allCategories
+  .sort((a, b) => a.data.display_order - b.data.display_order);
+---
+
+<BaseLayout
+  title="APIS 아피스 — 마커&필기구 전문 브랜드 | OEM 제조사"
+  description="아피스(APIS) — 20년 OEM 제조 경험의 마커&필기구 전문 브랜드. 유성마커, 네임펜, 보드마커, 형광펜 전문 제조."
+>
+
+  <!-- Announcement Bar -->
+  <div style="background:var(--apis-accent);color:#fff;text-align:center;padding:10px 24px;font-size:0.85rem;font-weight:600;">
+    🎉 신제품 APIS 72H 유성마커 출시! OEM 주문 상담 진행 중 &mdash;
+    <a href="/oem" style="text-decoration:underline;margin-left:8px;">문의하기 →</a>
+  </div>
+
+  <!-- Hero -->
+  <section style="background:linear-gradient(135deg,var(--apis-primary) 0%,var(--apis-ink) 60%,#0f3460 100%);color:#fff;padding:100px 0 80px;position:relative;overflow:hidden;">
+    <div class="container">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;">
+        <div>
+          <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(233,69,96,0.15);border:1px solid rgba(233,69,96,0.3);color:#f87fa0;padding:6px 14px;border-radius:20px;font-size:0.8rem;font-weight:700;letter-spacing:1px;margin-bottom:20px;">
+            ✦ APIS Marker Brand — Korea
+          </div>
+          <h1 style="font-size:3rem;font-weight:900;line-height:1.2;margin-bottom:20px;">
+            20년 제조 노하우<br /><span style="color:var(--apis-accent);">마커의 기준</span>을<br />새로 씁니다
+          </h1>
+          <p style="font-size:1.05rem;color:rgba(255,255,255,0.75);line-height:1.8;margin-bottom:36px;">
+            아피스(APIS)는 유성마커·네임펜·보드마커·형광펜 전문 OEM 제조 브랜드입니다.<br />
+            고품질 잉크 기술과 20년 생산 경험으로 귀사의 마커 제품을 완성합니다.
+          </p>
+          <div style="display:flex;gap:16px;flex-wrap:wrap;">
+            <a href="/categories" style="background:var(--apis-accent);color:#fff;padding:14px 28px;border-radius:10px;font-weight:700;font-size:0.95rem;display:inline-flex;align-items:center;gap:8px;">✦ 제품 보기</a>
+            <a href="/oem" style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.25);color:#fff;padding:14px 28px;border-radius:10px;font-weight:700;font-size:0.95rem;">OEM 상담 신청</a>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+          <div style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);border-radius:16px;padding:24px;text-align:center;">
+            <div style="font-size:2.5rem;margin-bottom:12px;">🖊️</div>
+            <h3 style="font-size:0.9rem;font-weight:700;color:rgba(255,255,255,0.9);margin-bottom:4px;">유성마커</h3>
+            <p style="font-size:0.75rem;color:rgba(255,255,255,0.55);">72시간 내수 잉크</p>
+          </div>
+          <div style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);border-radius:16px;padding:24px;text-align:center;">
+            <div style="font-size:2.5rem;margin-bottom:12px;">📝</div>
+            <h3 style="font-size:0.9rem;font-weight:700;color:rgba(255,255,255,0.9);margin-bottom:4px;">네임펜</h3>
+            <p style="font-size:0.75rem;color:rgba(255,255,255,0.55);">멀티서피스 전용</p>
+          </div>
+          <div style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);border-radius:16px;padding:24px;text-align:center;">
+            <div style="font-size:2.5rem;margin-bottom:12px;">🎨</div>
+            <h3 style="font-size:0.9rem;font-weight:700;color:rgba(255,255,255,0.9);margin-bottom:4px;">아크릴마커</h3>
+            <p style="font-size:0.75rem;color:rgba(255,255,255,0.55);">예술·DIY 특화</p>
+          </div>
+          <div style="background:rgba(233,69,96,0.2);border:1px solid rgba(233,69,96,0.35);border-radius:16px;padding:24px;text-align:center;grid-column:1/-1;">
+            <div style="font-size:1.5rem;margin-bottom:4px;">🏭</div>
+            <div style="font-size:2rem;font-weight:900;color:var(--apis-accent);">20+</div>
+            <h3 style="font-size:0.9rem;font-weight:700;color:rgba(255,255,255,0.9);">년간 OEM 제조</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Bar -->
+  <section style="background:var(--apis-primary);color:#fff;padding:40px 0;">
+    <div class="container">
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);">
+        <div style="text-align:center;padding:20px;border-right:1px solid rgba(255,255,255,0.1);">
+          <div style="font-size:2.5rem;font-weight:900;color:var(--apis-gold);">27</div>
+          <div style="font-size:0.85rem;color:rgba(255,255,255,0.6);margin-top:4px;">라인업 출시 예정</div>
+        </div>
+        <div style="text-align:center;padding:20px;border-right:1px solid rgba(255,255,255,0.1);">
+          <div style="font-size:2.5rem;font-weight:900;color:var(--apis-gold);">20+</div>
+          <div style="font-size:0.85rem;color:rgba(255,255,255,0.6);margin-top:4px;">년 OEM 제조 경험</div>
+        </div>
+        <div style="text-align:center;padding:20px;border-right:1px solid rgba(255,255,255,0.1);">
+          <div style="font-size:2.5rem;font-weight:900;color:var(--apis-gold);">7</div>
+          <div style="font-size:0.85rem;color:rgba(255,255,255,0.6);margin-top:4px;">주요 카테고리</div>
+        </div>
+        <div style="text-align:center;padding:20px;">
+          <div style="font-size:2.5rem;font-weight:900;color:var(--apis-gold);">100%</div>
+          <div style="font-size:0.85rem;color:rgba(255,255,255,0.6);margin-top:4px;">국내 제조 품질</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Category Section -->
+  <section class="section bg-light" id="categories">
+    <div class="container">
+      <div class="text-center">
+        <h2 class="section-title">제품 카테고리</h2>
+        <p class="section-sub">아피스의 전체 마커 라인업을 카테고리별로 확인하세요</p>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;">
+        {sortedCategories.map((cat) => (
+          <a
+            href={`/categories/${cat.id}`}
+            style="border:1px solid var(--apis-border);border-radius:16px;padding:32px 24px;display:block;transition:all 0.3s;"
+          >
+            <div style="font-size:2.5rem;margin-bottom:16px;">{cat.data.icon}</div>
+            <div style="font-size:1.1rem;font-weight:800;margin-bottom:8px;">{cat.data.title}</div>
+            <p style="font-size:0.875rem;color:var(--apis-gray);line-height:1.7;">{cat.data.description.slice(0, 60)}...</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Products -->
+  <section class="section" id="products">
+    <div class="container">
+      <div class="text-center">
+        <h2 class="section-title">주요 제품</h2>
+        <p class="section-sub">아피스 핵심 제품 라인업 — Phase 1 출시 제품</p>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:24px;">
+        {homeProducts.map((product) => (
+          <a
+            href={`/products/${product.slug}`}
+            style="border:1px solid var(--apis-border);border-radius:16px;overflow:hidden;display:block;transition:all 0.3s;"
+          >
+            <div style="height:180px;background:var(--apis-light);display:flex;align-items:center;justify-content:center;font-size:3.5rem;">
+              {product.data.category === "permanent-marker" ? "🖊️" :
+               product.data.category === "name-pen" ? "✒️" :
+               product.data.category === "board-marker" ? "📊" :
+               product.data.category === "highlighter" ? "🌟" :
+               product.data.category === "fabric-marker" ? "👗" :
+               product.data.category === "acrylic-marker" ? "🎨" :
+               product.data.category === "functional-marker" ? "🔧" : "📦"}
+            </div>
+            <div style="padding:20px;">
+              <div style="font-size:0.75rem;color:var(--apis-accent);font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;">
+                {product.data.primary_sales_group.replace(/-/g, " ")}
+              </div>
+              <div style="font-size:0.95rem;font-weight:800;margin-bottom:8px;line-height:1.4;">
+                {product.data.title_short || product.data.title}
+              </div>
+              <p style="font-size:0.8rem;color:var(--apis-gray);line-height:1.6;">
+                {product.data.description.slice(0, 50)}...
+              </p>
+              {product.data.coupang_url && (
+                <div style="margin-top:12px;">
+                  <a
+                    href={product.data.coupang_url}
+                    target="_blank"
+                    rel="noopener noreferrer nofollow"
+                    style="color:var(--apis-accent);font-size:0.8rem;font-weight:700;"
+                    onclick="event.stopPropagation();"
+                  >
+                    쿠팡에서 구매 →
+                  </a>
+                </div>
+              )}
+            </div>
+          </a>
+        ))}
+      </div>
+      <div style="text-align:center;margin-top:40px;">
+        <a href="/categories" style="background:var(--apis-accent);color:#fff;padding:14px 36px;border-radius:10px;font-weight:700;font-size:1rem;display:inline-block;">전체 제품 보기</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why APIS -->
+  <section class="section bg-light">
+    <div class="container">
+      <div class="text-center">
+        <h2 class="section-title">왜 APIS인가</h2>
+        <p class="section-sub">20년 제조 경험이 만들어낸 마커 브랜드의 기준</p>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:32px;">
+        {[
+          { icon: "🏭", title: "20년 OEM 제조 경험", desc: "국내 대형 유통사·문구 브랜드의 OEM을 책임진 20년 이상의 제조 노하우." },
+          { icon: "🔬", title: "자체 잉크 R&D", desc: "72H 캡오프 특수 잉크, 멀티서피스 네임 잉크 등 독자 개발 기술." },
+          { icon: "✅", title: "검증된 품질 관리", desc: "전수 검사 시스템과 규격화된 생산 공정으로 불량률 최소화." },
+          { icon: "🤝", title: "유연한 OEM 협업", desc: "소량(50개~)부터 대량 주문까지. 브랜드 컬러·패키지 커스터마이징." },
+          { icon: "🚀", title: "빠른 샘플 제공", desc: "문의 접수 후 영업일 기준 3~5일 내 샘플 발송." },
+          { icon: "🌐", title: "글로벌 수출 역량", desc: "일본·동남아 수출 경험 보유. CE 인증, 해외 포장 규격 대응." },
+        ].map((item) => (
+          <div style="text-align:center;padding:40px 28px;border:1px solid var(--apis-border);border-radius:20px;">
+            <div style="width:72px;height:72px;border-radius:20px;margin:0 auto 20px;background:rgba(233,69,96,0.08);display:flex;align-items:center;justify-content:center;font-size:2rem;">
+              {item.icon}
+            </div>
+            <div style="font-size:1.1rem;font-weight:800;margin-bottom:10px;">{item.title}</div>
+            <p style="font-size:0.875rem;color:var(--apis-gray);line-height:1.8;">{item.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- OEM CTA -->
+  <section style="background:linear-gradient(135deg,var(--apis-primary),var(--apis-ink));color:#fff;padding:80px 0;">
+    <div class="container" style="text-align:center;">
+      <h2 style="font-size:2.2rem;font-weight:900;margin-bottom:16px;">귀사의 마커 브랜드를 아피스가 만들어 드립니다</h2>
+      <p style="color:rgba(255,255,255,0.7);max-width:600px;margin:0 auto 36px;line-height:1.8;">
+        소량 샘플부터 대량 양산까지, 잉크 배합·외관 디자인·패키지 모두 커스터마이징 가능합니다.
+      </p>
+      <a href="/oem" style="background:var(--apis-accent);color:#fff;padding:16px 40px;border-radius:12px;font-weight:700;font-size:1.1rem;display:inline-block;">
+        OEM 상담 신청하기 →
+      </a>
+    </div>
+  </section>
+
+</BaseLayout>

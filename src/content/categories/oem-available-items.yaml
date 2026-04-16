@@ -1,0 +1,16 @@
+id: "oem-available-items"
+slug: "oem-available-items"
+title: "OEM 전용 아이템"
+title_en: "OEM Available Items"
+subtitle: "브랜드 커스터마이징 OEM 제조 전용"
+description: "B2B 파트너사를 위한 OEM 전용 제조 라인. 잉크·외관·패키지 완전 커스터마이징 가능. 상담 후 제조 진행."
+sales_focus_group: "oem-support"
+included_categories:
+  - "oem-item"
+icon: "🏭"
+display_order: 7
+hero_color: "#1a1a2e"
+is_active: true
+seo_title: "OEM 마커 제조 — 커스터마이징 전용 | APIS 아피스"
+seo_description: "APIS OEM 마커 제조. MOQ 50개부터, 잉크·외관·패키지 전부 커스터마이징. 20년 제조 경험."
+og_image: "/images/categories/oem-available-items-og.jpg"

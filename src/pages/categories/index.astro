@@ -1,0 +1,68 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+
+const allCategories = await getCollection("categories", ({ data }) => data.is_active);
+const allProducts = await getCollection("products", ({ data }) => data.is_active);
+
+const sortedCategories = allCategories.sort((a, b) => a.data.display_order - b.data.display_order);
+
+// 각 카테고리의 제품 수 계산
+const productCountByGroup = allProducts.reduce((acc, p) => {
+  const group = p.data.primary_sales_group;
+  acc[group] = (acc[group] || 0) + 1;
+  return acc;
+}, {} as Record<string, number>);
+---
+
+<BaseLayout
+  title="전체 제품 카테고리 | APIS 아피스"
+  description="APIS 아피스의 전체 마커 카테고리. 유성마커, 네임펜, 보드마커, 형광펜, 패브릭마커, 아크릴마커, OEM 라인업."
+>
+
+  <!-- Hero -->
+  <section style="background:var(--apis-primary);color:#fff;padding:60px 0;">
+    <div class="container text-center">
+      <h1 style="font-size:2.5rem;font-weight:900;margin-bottom:12px;">전체 제품 카테고리</h1>
+      <p style="color:rgba(255,255,255,0.7);font-size:1rem;">아피스의 {allCategories.length}가지 마커 카테고리를 탐색하세요</p>
+    </div>
+  </section>
+
+  <!-- Categories Grid -->
+  <section class="section">
+    <div class="container">
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:28px;">
+        {sortedCategories.map((cat) => {
+          const count = productCountByGroup[cat.data.sales_focus_group] || 0;
+          return (
+            <a
+              href={`/categories/${cat.id}`}
+              style="border:1px solid var(--apis-border);border-radius:20px;padding:36px 28px;display:block;transition:all 0.3s;position:relative;overflow:hidden;"
+            >
+              <div style="font-size:3rem;margin-bottom:20px;">{cat.data.icon}</div>
+              <h2 style="font-size:1.2rem;font-weight:800;margin-bottom:8px;">{cat.data.title}</h2>
+              <p style="font-size:0.875rem;color:var(--apis-gray);margin-bottom:4px;font-style:italic;">{cat.data.subtitle}</p>
+              <p style="font-size:0.875rem;color:var(--apis-gray);line-height:1.7;margin-bottom:20px;">{cat.data.description}</p>
+              <div style="display:flex;align-items:center;justify-content:space-between;">
+                <span style="background:var(--apis-light);color:var(--apis-accent);padding:4px 12px;border-radius:20px;font-size:0.75rem;font-weight:700;">
+                  {count > 0 ? `${count}개 제품` : "상담 필요"}
+                </span>
+                <span style="color:var(--apis-accent);font-weight:700;font-size:0.9rem;">보기 →</span>
+              </div>
+            </a>
+          );
+        })}
+      </div>
+    </div>
+  </section>
+
+  <!-- OEM CTA -->
+  <section style="background:var(--apis-light);padding:60px 0;">
+    <div class="container text-center">
+      <h2 style="font-size:1.8rem;font-weight:800;margin-bottom:12px;">원하는 제품을 찾지 못하셨나요?</h2>
+      <p style="color:var(--apis-gray);margin-bottom:28px;">20년 OEM 제조 경험으로 맞춤 제작이 가능합니다.</p>
+      <a href="/oem" style="background:var(--apis-accent);color:#fff;padding:14px 32px;border-radius:10px;font-weight:700;font-size:1rem;display:inline-block;">OEM 상담 신청</a>
+    </div>
+  </section>
+
+</BaseLayout>

@@ -1,0 +1,16 @@
+id: "waterbased-sign-pens"
+slug: "waterbased-sign-pens"
+title: "수성 사인펜"
+title_en: "Waterbased Sign Pens"
+subtitle: "수성 잉크 기반 사인펜 전문 라인"
+description: "안전하고 친환경적인 수성 잉크 기반 사인펜. 어린이부터 성인까지 안심하고 사용할 수 있는 수성 필기구입니다."
+sales_focus_group: "sign-pen-waterbased"
+included_categories:
+  - "waterbased-sign-pen"
+icon: "✒️"
+display_order: 5
+hero_color: "#10b981"
+is_active: true
+seo_title: "수성 사인펜 — 안전·친환경 수성 필기구 | APIS 아피스"
+seo_description: "APIS 수성 사인펜. 안전한 수성 잉크, 친환경 설계. 어린이·성인 모두 사용 가능."
+og_image: "/images/categories/waterbased-sign-pens-og.jpg"

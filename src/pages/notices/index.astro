@@ -1,0 +1,69 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+// 공지사항은 하드코딩 (추후 Content Collection으로 이전)
+const notices = [
+  {
+    id: 1,
+    tag: "신제품",
+    title: "APIS 72H 유성마커 출시 — 국내 최초 72시간 캡오프 기술 적용",
+    date: "2026-04-16",
+    excerpt: "뚜껑 없이도 72시간 마르지 않는 특수 잉크 기술을 탑재한 APIS 72H 유성마커가 출시되었습니다.",
+  },
+  {
+    id: 2,
+    tag: "OEM",
+    title: "2026년 상반기 OEM 라인업 확장 — 아크릴·패브릭 마커 추가",
+    date: "2026-04-10",
+    excerpt: "아피스 OEM 제조 라인업에 아크릴마커와 패브릭마커가 새롭게 추가되었습니다.",
+  },
+  {
+    id: 3,
+    tag: "공지",
+    title: "apispen.com 공식 쇼룸 사이트 오픈 안내",
+    date: "2026-04-01",
+    excerpt: "아피스 공식 쇼룸 사이트가 오픈되었습니다. 전체 제품 라인업과 OEM 상담 서비스를 이용하실 수 있습니다.",
+  },
+];
+
+const tagColors: Record<string, { bg: string; color: string }> = {
+  "신제품": { bg: "rgba(233,69,96,0.1)", color: "var(--apis-accent)" },
+  "OEM": { bg: "rgba(59,130,246,0.1)", color: "#3b82f6" },
+  "공지": { bg: "rgba(107,114,128,0.1)", color: "var(--apis-gray)" },
+  "이벤트": { bg: "rgba(245,166,35,0.1)", color: "var(--apis-gold)" },
+};
+---
+
+<BaseLayout
+  title="공지사항 | APIS 아피스"
+  description="APIS 아피스의 공지사항 및 최신 소식을 확인하세요."
+>
+
+  <section style="background:var(--apis-primary);color:#fff;padding:60px 0;">
+    <div class="container text-center">
+      <h1 style="font-size:2.5rem;font-weight:900;margin-bottom:12px;">공지사항 & 뉴스</h1>
+      <p style="color:rgba(255,255,255,0.7);">아피스의 최신 소식을 전달합니다</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container" style="max-width:800px;">
+      <div style="display:grid;gap:24px;">
+        {notices.map((notice) => {
+          const tagStyle = tagColors[notice.tag] || tagColors["공지"];
+          return (
+            <div style="border:1px solid var(--apis-border);border-radius:16px;padding:32px;transition:all 0.3s;">
+              <div style={`display:inline-block;background:${tagStyle.bg};color:${tagStyle.color};padding:4px 12px;border-radius:8px;font-size:0.75rem;font-weight:700;margin-bottom:12px;`}>
+                {notice.tag}
+              </div>
+              <h2 style="font-size:1.1rem;font-weight:800;line-height:1.5;margin-bottom:10px;">{notice.title}</h2>
+              <p style="font-size:0.875rem;color:var(--apis-gray);line-height:1.7;margin-bottom:12px;">{notice.excerpt}</p>
+              <span style="font-size:0.8rem;color:var(--apis-gray);">{notice.date}</span>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>

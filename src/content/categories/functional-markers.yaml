@@ -1,0 +1,16 @@
+id: "functional-markers"
+slug: "functional-markers"
+title: "기능성 마커"
+title_en: "Functional Markers"
+subtitle: "철재·콘크리트·산업용 특화 마커"
+description: "극한 환경과 산업 현장을 위한 기능성 마커. 금속·콘크리트·철강 전용 잉크로 혹독한 조건에서도 선명함을 유지합니다."
+sales_focus_group: "marker-functional"
+included_categories:
+  - "functional-marker"
+icon: "🔧"
+display_order: 4
+hero_color: "#f59e0b"
+is_active: true
+seo_title: "기능성 마커 — 철재·콘크리트·산업용 | APIS 아피스"
+seo_description: "APIS 기능성 마커. 철재·금속·콘크리트 전용 산업용 마커. 방청·내열·극한환경 대응."
+og_image: "/images/categories/functional-markers-og.jpg"
